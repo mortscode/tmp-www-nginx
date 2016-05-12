@@ -1,0 +1,104 @@
+{#
+ # Layout template
+ # ---------------
+ #
+ # This template defines your site’s global layout. It can be
+ # “extended” by other templates to fill in the gaps.
+ #
+ # See Twig’s Template Inheritance documentation for more details:
+ # http://twig.sensiolabs.org/doc/templates.html#template-inheritance
+ #}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+  <meta charset="utf-8">
+
+  <!-- Always force latest IE rendering engine or request Chrome Frame -->
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+
+  <title>{% if entry is defined %}{% if entry.pageTitle|length %}{{ entry.pageTitle }}{% else %}{% if entry.title|length %}{{ entry.title }} / {% endif %}{{ siteName }}{% endif %}{% else %}{{ siteName }}{% endif %}</title>
+
+  {% if entry is defined %}
+   {% include 'partials/_meta-tags'%}  
+  {% else %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{{ seo.siteDescription }}" />
+    <meta name="keywords" content="{% if seo.siteKeywords|length %}{{ seo.siteKeywords }}{% endif %}">  
+  {% endif %}
+
+  <script src="https://use.typekit.net/hqj3djf.js"></script>
+  <script>try{Typekit.load({ async: true });}catch(e){}</script>
+
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="msapplication-TileColor" content="#f2f2f2">
+  <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+  <meta name="theme-color" content="#f2f2f2">
+  <link rel="stylesheet" href="/assets/styles/main.css">
+  <link rel="alternate" type="application/rss+xml" 
+   href="{{ siteUrl }}feed.rss" title="RSS feed for The Modern Proper">
+</head>
+
+{% if entry is defined %}
+  {% set section = entry.getSection() %}
+  {% if section.handle == 'postEntries' %}
+    {% set recipe = true %}
+  {% endif %}
+{% else %}
+  {% set section = 'no-section' %}
+{% endif %}
+
+<body class="tk-fade{% if recipe is defined and true %} print-styles{% endif %}">
+  {# HOME INTRO #}
+  {% set pageUrl = url(craft.request.path) %}
+  {% if pageUrl == siteUrl %}
+   {% include 'partials/_home-intro' %}
+  {% endif %}
+
+  <header id="header" class="site-header js-scroll-elem">
+   {% include 'partials/_navigation' with {'navView': 'desktop'} %}
+   <a href="/">
+     <div class="tmp-logo-wrapper js-header-logo">
+      <img class="tmp-logo" src="/assets/img/brand/tmp-logo.svg" onerror="this.onerror=null; this.src='/assets/img/brand/tmp-logo.png'">
+     </div>
+   </a>
+   {% include 'partials/_social-links' %}
+  </header>
+
+  {# MOBILE NAVIGATION #}
+  {% include 'partials/_mobile-nav' %}
+
+  <main id="content" role="main" class="js-main">
+   {% block content %}
+     <p>If you see me, you haven’t set your <code>{% verbatim %}{% block content %}…{% endblock %}{% endverbatim %}</code> yet.</p>
+     <p>See Twig’s <a href="http://twig.sensiolabs.org/doc/templates.html#template-inheritance">Template Inheritance</a> documentation for an explanation.</p>
+   {% endblock %}
+  </main>
+
+  <footer id="footer" class="footer">
+    <div class="grid">
+      <div class="left-side">&copy;{{ now.year }} / {{ craft.request.serverName }}</div>
+      <div class="right-side"><a href="/contact">send us a message :)</a></div>
+    </div>
+  </footer>
+
+  <script src="/assets/js/main.js"></script>
+  {% block newsletterJs %}{% endblock %}
+  {% block footerJs %}{% endblock %}
+  {% include 'scripts/_analytics' %}
+</body>
+</html>
