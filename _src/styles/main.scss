@@ -8,6 +8,8 @@
 @import "base/base";
 
 // COMPONENTS ============================================
+@import "components/header";
+@import "components/footer";
 @import "components/aside";
 @import "components/categories";
 @import "components/contact-form";
@@ -24,9 +26,8 @@
 
 // LAYOUT ================================================
 @import "layout/main-layout";
-@import "layout/header";
-@import "layout/footer";
 @import "layout/print";
+@import "layout/scrolls";
 
 // TEMPLATES =============================================
 

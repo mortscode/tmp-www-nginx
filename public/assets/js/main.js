@@ -56,7 +56,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	// Include global SASS file
-	__webpack_require__(/*! styles/main.scss */ 22);
+	__webpack_require__(/*! styles/main.scss */ 23);
 	
 	window.app = new _App2.default();
 
@@ -87,9 +87,17 @@
 	
 	var _loadImages2 = _interopRequireDefault(_loadImages);
 	
-	var _Scrolls = __webpack_require__(/*! ./utils/Scrolls */ 23);
+	var _emitter = __webpack_require__(/*! ./utils/emitter */ 17);
 	
-	var _Scrolls2 = _interopRequireDefault(_Scrolls);
+	var _emitter2 = _interopRequireDefault(_emitter);
+	
+	var _scroller = __webpack_require__(/*! ./utils/scroller */ 18);
+	
+	var _scroller2 = _interopRequireDefault(_scroller);
+	
+	var _resizer = __webpack_require__(/*! ./utils/resizer */ 26);
+	
+	var _resizer2 = _interopRequireDefault(_resizer);
 	
 	var _SearchButton = __webpack_require__(/*! ./components/SearchButton */ 20);
 	
@@ -99,13 +107,9 @@
 	
 	var _MobileNav2 = _interopRequireDefault(_MobileNav);
 	
-	var _emitter = __webpack_require__(/*! ./utils/emitter */ 24);
+	var _ScrollElems = __webpack_require__(/*! ./components/ScrollElems */ 22);
 	
-	var _emitter2 = _interopRequireDefault(_emitter);
-	
-	var _scroller = __webpack_require__(/*! ./utils/scroller */ 18);
-	
-	var _scroller2 = _interopRequireDefault(_scroller);
+	var _ScrollElems2 = _interopRequireDefault(_ScrollElems);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -139,6 +143,10 @@
 	      _scroller2.default.on('scroll', function () {
 	        _emitter2.default.fire('app--scroll');
 	      });
+	
+	      _resizer2.default.on('resize', function () {
+	        _emitter2.default.fire('app--resizer');
+	      });
 	    }
 	  }, {
 	    key: '_mapScrolls',
@@ -147,7 +155,7 @@
 	
 	      this.$scrolls.each(function (elem, i) {
 	        var $elem = (0, _properjsHobo2.default)(_this.$scrolls[i]);
-	        $elem.data('scrolls', new _Scrolls2.default($elem));
+	        $elem.data('scrolls', new _ScrollElems2.default($elem));
 	      });
 	    }
 	  }, {
@@ -1972,7 +1980,29 @@
 	});
 
 /***/ },
-/* 17 */,
+/* 17 */
+/*!**************************************!*\
+  !*** ./_src/js/app/utils/emitter.js ***!
+  \**************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _properjsController = __webpack_require__(/*! properjs-controller */ 16);
+	
+	var _properjsController2 = _interopRequireDefault(_properjsController);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var emitter = new _properjsController2.default();
+	
+	exports.default = emitter;
+
+/***/ },
 /* 18 */
 /*!***************************************!*\
   !*** ./_src/js/app/utils/scroller.js ***!
@@ -2329,6 +2359,97 @@
 
 /***/ },
 /* 22 */
+/*!***********************************************!*\
+  !*** ./_src/js/app/components/ScrollElems.js ***!
+  \***********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); // import $ from 'properjs-hobo';
+	
+	
+	var _emitter = __webpack_require__(/*! ../utils/emitter */ 17);
+	
+	var _emitter2 = _interopRequireDefault(_emitter);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var ScrollElems = function () {
+	  function ScrollElems($elem) {
+	    _classCallCheck(this, ScrollElems);
+	
+	    this.$elem = $elem;
+	    this.topTrigger = $elem.data('offset');
+	    this.intTrigger = $elem.data('int-offset');
+	    this.triggerLocation = null;
+	    this.winHeight = window.innerHeight;
+	    this.enterWindow = this.winHeight - 50;
+	    this.topOffset = null;
+	
+	    this.initialize();
+	  }
+	
+	  _createClass(ScrollElems, [{
+	    key: 'initialize',
+	    value: function initialize() {
+	      var _this = this;
+	
+	      this._offset();
+	      this._activate();
+	
+	      _emitter2.default.on('app--scroll', function () {
+	        _this._activate();
+	      });
+	
+	      _emitter2.default.on('app--resizer', function () {
+	        _this._resizeEvents();
+	      });
+	    }
+	  }, {
+	    key: '_offset',
+	    value: function _offset() {
+	      if (this.topTrigger) {
+	        this.triggerLocation = this.winHeight * this.topTrigger;
+	      } else if (this.intTrigger) {
+	        this.triggerLocation = this.intTrigger;
+	      } else {
+	        this.triggerLocation = this.enterWindow;
+	      }
+	    }
+	  }, {
+	    key: '_activate',
+	    value: function _activate() {
+	      this.topOffset = this.$elem[0].getBoundingClientRect().top;
+	
+	      if (this.topOffset < this.triggerLocation) {
+	        this.$elem.addClass('active');
+	      } else {
+	        this.$elem.removeClass('active');
+	      }
+	    }
+	  }, {
+	    key: '_resizeEvents',
+	    value: function _resizeEvents() {
+	      this.winHeight = window.innerHeight;
+	      this._offset();
+	      this._activate();
+	    }
+	  }]);
+	
+	  return ScrollElems;
+	}();
+
+	exports.default = ScrollElems;
+
+/***/ },
+/* 23 */
 /*!*******************************!*\
   !*** ./_src/styles/main.scss ***!
   \*******************************/
@@ -2337,63 +2458,219 @@
 	module.exports = __webpack_require__.p + "styles/main.css";
 
 /***/ },
-/* 23 */
-/*!**************************************!*\
-  !*** ./_src/js/app/utils/Scrolls.js ***!
-  \**************************************/
+/* 24 */,
+/* 25 */
+/*!*********************************************************!*\
+  !*** ./~/properjs-resizecontroller/ResizeController.js ***!
+  \*********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/*!
+	 *
+	 * Window resize / orientationchange event controller
+	 *
+	 * @ResizeController
+	 * @author: kitajchuk
+	 *
+	 *
+	 */
+	(function ( factory ) {
+	    
+	    if ( true ) {
+	        module.exports = factory();
 	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); //import $ from 'properjs-hobo';
-	
-	
-	var _emitter = __webpack_require__(/*! ./emitter */ 24);
-	
-	var _emitter2 = _interopRequireDefault(_emitter);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var Scrolls = function () {
-	  function Scrolls($elem) {
-	    _classCallCheck(this, Scrolls);
-	
-	    this.$elem = $elem;
-	    this.topOffset = null;
-	
-	    this.initialize();
-	  }
-	
-	  _createClass(Scrolls, [{
-	    key: 'initialize',
-	    value: function initialize() {
-	      var _this = this;
-	
-	      _emitter2.default.on('app--scroll', function () {
-	        _this.topOffset = _this.$elem[0].getBoundingClientRect().top;
-	        // console.log(this.$elem);
-	        if (_this.topOffset <= 0) {
-	          _this.$elem.addClass('top');
-	        }
-	      });
+	    } else if ( typeof window !== "undefined" ) {
+	        window.ResizeController = factory();
 	    }
-	  }]);
+	    
+	})(function () {
 	
-	  return Scrolls;
-	}();
-
-	exports.default = Scrolls;
+	    var Controller = __webpack_require__( /*! properjs-controller */ 16 ),
+	
+	        // Orientation?
+	        _hasOrientation = ("orientation" in window),
+	
+	        // Current window viewport
+	        _currentView = null,
+	
+	        // Singleton
+	        _instance = null;
+	
+	    /**
+	     *
+	     * Window resize / orientationchange event controller
+	     * @constructor ResizeController
+	     * @augments Controller
+	     * @requires Controller
+	     * @memberof! <global>
+	     *
+	     * @fires resize
+	     * @fires resizedown
+	     * @fires resizeup
+	     * @fires resizewidth
+	     * @fires resizeheight
+	     * @fires orientationchange
+	     * @fires orientationportrait
+	     * @fires orientationlandscape
+	     *
+	     */
+	    var ResizeController = function () {
+	        // Singleton
+	        if ( !_instance ) {
+	            _instance = this;
+	
+	            // Initial viewport settings
+	            _currentView = _instance.getViewport();
+	
+	            // Call on parent cycle
+	            this.go(function () {
+	                var currentView = _instance.getViewport(),
+	                    isStill = (currentView.width === _currentView.width && currentView.height === _currentView.height),
+	                    isResize = (currentView.width !== _currentView.width || currentView.height !== _currentView.height),
+	                    isResizeUp = (currentView.width > _currentView.width || currentView.height > _currentView.height),
+	                    isResizeDown = (currentView.width < _currentView.width || currentView.height < _currentView.height),
+	                    isResizeWidth = (currentView.width !== _currentView.width),
+	                    isResizeHeight = (currentView.height !== _currentView.height),
+	                    isOrientation = (currentView.orient !== _currentView.orient),
+	                    isOrientationPortrait = (currentView.orient !== _currentView.orient && currentView.orient !== 90),
+	                    isOrientationLandscape = (currentView.orient !== _currentView.orient && currentView.orient === 90);
+	
+	                // Fire blanket resize event
+	                if ( isResize ) {
+	                    /**
+	                     *
+	                     * @event resize
+	                     *
+	                     */
+	                    _instance.fire( "resize" );
+	                }
+	
+	                // Fire resizeup and resizedown
+	                if ( isResizeDown ) {
+	                    /**
+	                     *
+	                     * @event resizedown
+	                     *
+	                     */
+	                    _instance.fire( "resizedown" );
+	
+	                } else if ( isResizeUp ) {
+	                    /**
+	                     *
+	                     * @event resizeup
+	                     *
+	                     */
+	                    _instance.fire( "resizeup" );
+	                }
+	
+	                // Fire resizewidth and resizeheight
+	                if ( isResizeWidth ) {
+	                    /**
+	                     *
+	                     * @event resizewidth
+	                     *
+	                     */
+	                    _instance.fire( "resizewidth" );
+	
+	                } else if ( isResizeHeight ) {
+	                    /**
+	                     *
+	                     * @event resizeheight
+	                     *
+	                     */
+	                    _instance.fire( "resizeheight" );
+	                }
+	
+	                // Fire blanket orientationchange event
+	                if ( isOrientation ) {
+	                    /**
+	                     *
+	                     * @event orientationchange
+	                     *
+	                     */
+	                    _instance.fire( "orientationchange" );
+	                }
+	
+	                // Fire orientationportrait and orientationlandscape
+	                if ( isOrientationPortrait ) {
+	                    /**
+	                     *
+	                     * @event orientationportrait
+	                     *
+	                     */
+	                    _instance.fire( "orientationportrait" );
+	
+	                } else if ( isOrientationLandscape ) {
+	                    /**
+	                     *
+	                     * @event orientationlandscape
+	                     *
+	                     */
+	                    _instance.fire( "orientationlandscape" );
+	                }
+	
+	                _currentView = currentView;
+	            });
+	        }
+	
+	        return _instance;
+	    };
+	
+	    ResizeController.prototype = new Controller();
+	
+	    /**
+	     *
+	     * Returns the current window viewport specs
+	     * @memberof ResizeController
+	     * @method getViewport
+	     * @returns object
+	     *
+	     */
+	    ResizeController.prototype.getViewport = function () {
+	        return {
+	            width: window.innerWidth,
+	            height: window.innerHeight,
+	            orient: _hasOrientation ? Math.abs( window.orientation ) : null
+	        };
+	    };
+	
+	    /**
+	     *
+	     * Tells if the viewport is in protrait mode
+	     * @memberof ResizeController
+	     * @method isPortrait
+	     * @returns boolean
+	     *
+	     */
+	    ResizeController.prototype.isPortrait = function () {
+	        var orient = this.getViewport().orient;
+	
+	        return (orient !== null && orient !== 90);
+	    };
+	
+	    /**
+	     *
+	     * Tells if the viewport is in landscape mode
+	     * @memberof ResizeController
+	     * @method isLandscape
+	     * @returns boolean
+	     *
+	     */
+	    ResizeController.prototype.isLandscape = function () {
+	        var orient = this.getViewport().orient;
+	
+	        return (orient !== null && orient === 90);
+	    };
+	
+	
+	    return ResizeController;
+	
+	});
 
 /***/ },
-/* 24 */
+/* 26 */
 /*!**************************************!*\
-  !*** ./_src/js/app/utils/emitter.js ***!
+  !*** ./_src/js/app/utils/resizer.js ***!
   \**************************************/
 /***/ function(module, exports, __webpack_require__) {
 
@@ -2403,15 +2680,15 @@
 	  value: true
 	});
 	
-	var _properjsController = __webpack_require__(/*! properjs-controller */ 16);
+	var _properjsResizecontroller = __webpack_require__(/*! properjs-resizecontroller */ 25);
 	
-	var _properjsController2 = _interopRequireDefault(_properjsController);
+	var _properjsResizecontroller2 = _interopRequireDefault(_properjsResizecontroller);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var emitter = new _properjsController2.default();
+	var resizer = new _properjsResizecontroller2.default();
 	
-	exports.default = emitter;
+	exports.default = resizer;
 
 /***/ }
 /******/ ]);

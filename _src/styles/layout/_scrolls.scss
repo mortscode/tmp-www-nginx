@@ -1,0 +1,12 @@
+.scrolls {
+  &.-fade-up {
+    opacity: 0;
+    transform: translate(0, $base-spacing);
+    transition: opacity $med-ease, transform $med-ease;
+  }
+
+  &.active {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
