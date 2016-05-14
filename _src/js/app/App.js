@@ -1,11 +1,12 @@
 import $ from 'properjs-hobo';
 import avoidOrphan from './utils/avoid-orphan';
 import loadImages from './utils/load-images';
-import SearchButton from './components/SearchButton';
-import MobileNav from './components/MobileNav';
 import emitter from './utils/emitter';
 import scroller from './utils/scroller';
-import Scrolls from './utils/Scrolls';
+import resizer from './utils/resizer';
+import SearchButton from './components/SearchButton';
+import MobileNav from './components/MobileNav';
+import ScrollElems from './components/ScrollElems';
 
 export default class App {
   constructor() {
@@ -30,12 +31,16 @@ export default class App {
     scroller.on('scroll', () => {
       emitter.fire('app--scroll');
     });
+
+    resizer.on('resize', () => {
+      emitter.fire('app--resizer');
+    });
   }
 
   _mapScrolls() {
     this.$scrolls.each((elem, i) => {
       const $elem = $(this.$scrolls[i]);
-      $elem.data('scrolls', new Scrolls($elem));
+      $elem.data('scrolls', new ScrollElems($elem));
     });
   }
 
