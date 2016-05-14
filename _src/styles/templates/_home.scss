@@ -25,6 +25,7 @@
     width: 100%;
 
     @include breakpoint($vp1) {
+      border-bottom: none;
       padding-top: 0;
     }
 

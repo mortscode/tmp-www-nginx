@@ -1,4 +1,25 @@
 .site-header {
+  position: relative;
+
+  &.active {
+    height: em(80);
+
+    .sticky-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+    }
+
+    .tmp-logo-wrapper {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+}
+
+.sticky-header {
   background-color: rgba($white, 0.98);
   position: relative;
   z-index: $z-nav;
@@ -6,18 +27,6 @@
 
   @include breakpoint($vp3) {
     height: em(40);
-  }
-
-  &.stuck {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-
-    .tmp-logo-wrapper {
-      opacity: 1;
-    }
   }
 
   .tmp-logo-wrapper {
@@ -29,6 +38,7 @@
     border-radius: 100%;
     background-color: rgba($tmp-gray, 0.95);
     text-align: center;
+    pointer-events: none;
     opacity: 0;
     transform: translateX(-50%);
     transition: opacity $quick-ease;
@@ -160,6 +170,7 @@
 
           &.instagram {
             background-image: url("/assets/img/icons/instagram.svg");
+            background-size: 55% 55%;
           }
 
           &.pinterest {

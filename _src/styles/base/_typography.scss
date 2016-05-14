@@ -25,17 +25,12 @@ h6 {
 }
 
 h1 {
-  font-size: rem(48);
-  line-height: rem(60);
+  font-size: rem(36);
+  line-height: rem(48);
   font-style: italic;
   font-weight: 500;
 
-  @include breakpoint($vp4) {
-    font-size: rem(40);
-    line-height: rem(48);
-  }
-
-  @include breakpoint($vp2) {
+  @include breakpoint($vp3) {
     font-size: rem(30);
     line-height: rem(36);
   }
