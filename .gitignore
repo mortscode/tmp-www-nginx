@@ -11,6 +11,7 @@ craft/storage/
 # ----------------------------------------------------------------------
 html/assets/uploads/*
 public/assets/
+public/icons/
 node_modules/
 data/
 zz-archive/
