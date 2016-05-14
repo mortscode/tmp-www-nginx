@@ -1,4 +1,3 @@
-// import $ from 'properjs-hobo';
 import emitter from '../utils/emitter';
 
 export default class ScrollElems {
@@ -41,7 +40,7 @@ export default class ScrollElems {
   _activate() {
     this.topOffset = this.$elem[0].getBoundingClientRect().top;
 
-    if (this.topOffset < this.triggerLocation) {
+    if (this.topOffset <= this.triggerLocation) {
       this.$elem.addClass('active');
     } else {
       this.$elem.removeClass('active');

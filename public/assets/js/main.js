@@ -2602,8 +2602,7 @@
 	  value: true
 	});
 	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); // import $ from 'properjs-hobo';
-	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _emitter = __webpack_require__(/*! ../utils/emitter */ 17);
 	
@@ -2660,7 +2659,7 @@
 	    value: function _activate() {
 	      this.topOffset = this.$elem[0].getBoundingClientRect().top;
 	
-	      if (this.topOffset < this.triggerLocation) {
+	      if (this.topOffset <= this.triggerLocation) {
 	        this.$elem.addClass('active');
 	      } else {
 	        this.$elem.removeClass('active');

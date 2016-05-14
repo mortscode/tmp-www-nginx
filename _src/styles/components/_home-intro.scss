@@ -5,7 +5,7 @@
   &__top {
     background-color: $tmp-light;
     display: block;
-    padding: $large-spacing 0;
+    padding: $base-spacing 0;
     width: 100%;
 
     @include breakpoint($vp4) {
