@@ -56,7 +56,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	// Include global SASS file
-	__webpack_require__(/*! styles/main.scss */ 23);
+	__webpack_require__(/*! styles/main.scss */ 25);
 	
 	window.app = new _App2.default();
 
@@ -95,19 +95,19 @@
 	
 	var _scroller2 = _interopRequireDefault(_scroller);
 	
-	var _resizer = __webpack_require__(/*! ./utils/resizer */ 26);
+	var _resizer = __webpack_require__(/*! ./utils/resizer */ 20);
 	
 	var _resizer2 = _interopRequireDefault(_resizer);
 	
-	var _SearchButton = __webpack_require__(/*! ./components/SearchButton */ 20);
+	var _SearchButton = __webpack_require__(/*! ./components/SearchButton */ 22);
 	
 	var _SearchButton2 = _interopRequireDefault(_SearchButton);
 	
-	var _MobileNav = __webpack_require__(/*! ./components/MobileNav */ 21);
+	var _MobileNav = __webpack_require__(/*! ./components/MobileNav */ 23);
 	
 	var _MobileNav2 = _interopRequireDefault(_MobileNav);
 	
-	var _ScrollElems = __webpack_require__(/*! ./components/ScrollElems */ 22);
+	var _ScrollElems = __webpack_require__(/*! ./components/ScrollElems */ 24);
 	
 	var _ScrollElems2 = _interopRequireDefault(_ScrollElems);
 	
@@ -2205,9 +2205,9 @@
 
 /***/ },
 /* 20 */
-/*!************************************************!*\
-  !*** ./_src/js/app/components/SearchButton.js ***!
-  \************************************************/
+/*!**************************************!*\
+  !*** ./_src/js/app/utils/resizer.js ***!
+  \**************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2216,250 +2216,18 @@
 	  value: true
 	});
 	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	var _properjsResizecontroller = __webpack_require__(/*! properjs-resizecontroller */ 21);
 	
-	var _properjsHobo = __webpack_require__(/*! properjs-hobo */ 2);
-	
-	var _properjsHobo2 = _interopRequireDefault(_properjsHobo);
+	var _properjsResizecontroller2 = _interopRequireDefault(_properjsResizecontroller);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	var resizer = new _properjsResizecontroller2.default();
 	
-	var SearchButton = function () {
-	  function SearchButton(elem) {
-	    _classCallCheck(this, SearchButton);
-	
-	    this.$elem = (0, _properjsHobo2.default)(elem);
-	    this.$searchForm = (0, _properjsHobo2.default)('.js-search-form');
-	    this.$searchField = (0, _properjsHobo2.default)('.js-search');
-	    this.$headerlogo = (0, _properjsHobo2.default)('.js-header-logo');
-	    this.isOpen = false;
-	
-	    this.initialize();
-	  }
-	
-	  _createClass(SearchButton, [{
-	    key: 'initialize',
-	    value: function initialize() {
-	      this.setState();
-	    }
-	  }, {
-	    key: 'setState',
-	    value: function setState() {
-	      var _this = this;
-	
-	      this.$elem.on('click', function () {
-	        if (_this.isOpen) {
-	          _this.hideSearch();
-	        } else {
-	          _this.showSearch();
-	        }
-	      });
-	    }
-	  }, {
-	    key: 'showSearch',
-	    value: function showSearch() {
-	      this.$searchForm.addClass('is-open');
-	      this.$headerlogo.addClass('hide');
-	      this.$elem.addClass('close');
-	      this.isOpen = true;
-	    }
-	  }, {
-	    key: 'hideSearch',
-	    value: function hideSearch() {
-	      this.$searchForm.removeClass('is-open');
-	      this.$headerlogo.removeClass('hide');
-	      this.$elem.removeClass('close');
-	      this.isOpen = false;
-	    }
-	  }]);
-	
-	  return SearchButton;
-	}();
-
-	exports.default = SearchButton;
+	exports.default = resizer;
 
 /***/ },
 /* 21 */
-/*!*********************************************!*\
-  !*** ./_src/js/app/components/MobileNav.js ***!
-  \*********************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _properjsHobo = __webpack_require__(/*! properjs-hobo */ 2);
-	
-	var _properjsHobo2 = _interopRequireDefault(_properjsHobo);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var MobileNav = function () {
-	  function MobileNav(elem) {
-	    _classCallCheck(this, MobileNav);
-	
-	    this.$elem = (0, _properjsHobo2.default)(elem);
-	    this.$lines = (0, _properjsHobo2.default)('.js-lines');
-	    this.$mobileMenu = (0, _properjsHobo2.default)('.js-mobile-menu');
-	    this.$htmlBody = (0, _properjsHobo2.default)('html body');
-	    this.isOpen = false;
-	
-	    this.initialize();
-	  }
-	
-	  _createClass(MobileNav, [{
-	    key: 'initialize',
-	    value: function initialize() {
-	      this.setState();
-	    }
-	  }, {
-	    key: 'setState',
-	    value: function setState() {
-	      var _this = this;
-	
-	      this.$elem.on('click', function () {
-	        if (_this.isOpen) {
-	          _this.closeNav();
-	        } else {
-	          _this.openNav();
-	        }
-	      });
-	    }
-	  }, {
-	    key: 'openNav',
-	    value: function openNav() {
-	      this.$lines.addClass('close');
-	      this.$mobileMenu.addClass('is-open');
-	      this.$htmlBody.addClass('no-scroll');
-	      this.isOpen = true;
-	    }
-	  }, {
-	    key: 'closeNav',
-	    value: function closeNav() {
-	      this.$lines.removeClass('close');
-	      this.$mobileMenu.removeClass('is-open');
-	      this.$htmlBody.removeClass('no-scroll');
-	      this.isOpen = false;
-	    }
-	  }]);
-	
-	  return MobileNav;
-	}();
-
-	exports.default = MobileNav;
-
-/***/ },
-/* 22 */
-/*!***********************************************!*\
-  !*** ./_src/js/app/components/ScrollElems.js ***!
-  \***********************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); // import $ from 'properjs-hobo';
-	
-	
-	var _emitter = __webpack_require__(/*! ../utils/emitter */ 17);
-	
-	var _emitter2 = _interopRequireDefault(_emitter);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var ScrollElems = function () {
-	  function ScrollElems($elem) {
-	    _classCallCheck(this, ScrollElems);
-	
-	    this.$elem = $elem;
-	    this.topTrigger = $elem.data('offset');
-	    this.intTrigger = $elem.data('int-offset');
-	    this.triggerLocation = null;
-	    this.winHeight = window.innerHeight;
-	    this.enterWindow = this.winHeight - 50;
-	    this.topOffset = null;
-	
-	    this.initialize();
-	  }
-	
-	  _createClass(ScrollElems, [{
-	    key: 'initialize',
-	    value: function initialize() {
-	      var _this = this;
-	
-	      this._offset();
-	      this._activate();
-	
-	      _emitter2.default.on('app--scroll', function () {
-	        _this._activate();
-	      });
-	
-	      _emitter2.default.on('app--resizer', function () {
-	        _this._resizeEvents();
-	      });
-	    }
-	  }, {
-	    key: '_offset',
-	    value: function _offset() {
-	      if (this.topTrigger) {
-	        this.triggerLocation = this.winHeight * this.topTrigger;
-	      } else if (this.intTrigger) {
-	        this.triggerLocation = this.intTrigger;
-	      } else {
-	        this.triggerLocation = this.enterWindow;
-	      }
-	    }
-	  }, {
-	    key: '_activate',
-	    value: function _activate() {
-	      this.topOffset = this.$elem[0].getBoundingClientRect().top;
-	
-	      if (this.topOffset < this.triggerLocation) {
-	        this.$elem.addClass('active');
-	      } else {
-	        this.$elem.removeClass('active');
-	      }
-	    }
-	  }, {
-	    key: '_resizeEvents',
-	    value: function _resizeEvents() {
-	      this.winHeight = window.innerHeight;
-	      this._offset();
-	      this._activate();
-	    }
-	  }]);
-	
-	  return ScrollElems;
-	}();
-
-	exports.default = ScrollElems;
-
-/***/ },
-/* 23 */
-/*!*******************************!*\
-  !*** ./_src/styles/main.scss ***!
-  \*******************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "styles/main.css";
-
-/***/ },
-/* 24 */,
-/* 25 */
 /*!*********************************************************!*\
   !*** ./~/properjs-resizecontroller/ResizeController.js ***!
   \*********************************************************/
@@ -2668,10 +2436,10 @@
 	});
 
 /***/ },
-/* 26 */
-/*!**************************************!*\
-  !*** ./_src/js/app/utils/resizer.js ***!
-  \**************************************/
+/* 22 */
+/*!************************************************!*\
+  !*** ./_src/js/app/components/SearchButton.js ***!
+  \************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2680,15 +2448,246 @@
 	  value: true
 	});
 	
-	var _properjsResizecontroller = __webpack_require__(/*! properjs-resizecontroller */ 25);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _properjsResizecontroller2 = _interopRequireDefault(_properjsResizecontroller);
+	var _properjsHobo = __webpack_require__(/*! properjs-hobo */ 2);
+	
+	var _properjsHobo2 = _interopRequireDefault(_properjsHobo);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var resizer = new _properjsResizecontroller2.default();
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	exports.default = resizer;
+	var SearchButton = function () {
+	  function SearchButton(elem) {
+	    _classCallCheck(this, SearchButton);
+	
+	    this.$elem = (0, _properjsHobo2.default)(elem);
+	    this.$searchForm = (0, _properjsHobo2.default)('.js-search-form');
+	    this.$searchField = (0, _properjsHobo2.default)('.js-search');
+	    this.$headerlogo = (0, _properjsHobo2.default)('.js-header-logo');
+	    this.isOpen = false;
+	
+	    this.initialize();
+	  }
+	
+	  _createClass(SearchButton, [{
+	    key: 'initialize',
+	    value: function initialize() {
+	      this.setState();
+	    }
+	  }, {
+	    key: 'setState',
+	    value: function setState() {
+	      var _this = this;
+	
+	      this.$elem.on('click', function () {
+	        if (_this.isOpen) {
+	          _this.hideSearch();
+	        } else {
+	          _this.showSearch();
+	        }
+	      });
+	    }
+	  }, {
+	    key: 'showSearch',
+	    value: function showSearch() {
+	      this.$searchForm.addClass('is-open');
+	      this.$headerlogo.addClass('hide');
+	      this.$elem.addClass('close');
+	      this.isOpen = true;
+	    }
+	  }, {
+	    key: 'hideSearch',
+	    value: function hideSearch() {
+	      this.$searchForm.removeClass('is-open');
+	      this.$headerlogo.removeClass('hide');
+	      this.$elem.removeClass('close');
+	      this.isOpen = false;
+	    }
+	  }]);
+	
+	  return SearchButton;
+	}();
+
+	exports.default = SearchButton;
+
+/***/ },
+/* 23 */
+/*!*********************************************!*\
+  !*** ./_src/js/app/components/MobileNav.js ***!
+  \*********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _properjsHobo = __webpack_require__(/*! properjs-hobo */ 2);
+	
+	var _properjsHobo2 = _interopRequireDefault(_properjsHobo);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var MobileNav = function () {
+	  function MobileNav(elem) {
+	    _classCallCheck(this, MobileNav);
+	
+	    this.$elem = (0, _properjsHobo2.default)(elem);
+	    this.$lines = (0, _properjsHobo2.default)('.js-lines');
+	    this.$mobileMenu = (0, _properjsHobo2.default)('.js-mobile-menu');
+	    this.$htmlBody = (0, _properjsHobo2.default)('html body');
+	    this.isOpen = false;
+	
+	    this.initialize();
+	  }
+	
+	  _createClass(MobileNav, [{
+	    key: 'initialize',
+	    value: function initialize() {
+	      this.setState();
+	    }
+	  }, {
+	    key: 'setState',
+	    value: function setState() {
+	      var _this = this;
+	
+	      this.$elem.on('click', function () {
+	        if (_this.isOpen) {
+	          _this.closeNav();
+	        } else {
+	          _this.openNav();
+	        }
+	      });
+	    }
+	  }, {
+	    key: 'openNav',
+	    value: function openNav() {
+	      this.$lines.addClass('close');
+	      this.$mobileMenu.addClass('is-open');
+	      this.$htmlBody.addClass('no-scroll');
+	      this.isOpen = true;
+	    }
+	  }, {
+	    key: 'closeNav',
+	    value: function closeNav() {
+	      this.$lines.removeClass('close');
+	      this.$mobileMenu.removeClass('is-open');
+	      this.$htmlBody.removeClass('no-scroll');
+	      this.isOpen = false;
+	    }
+	  }]);
+	
+	  return MobileNav;
+	}();
+
+	exports.default = MobileNav;
+
+/***/ },
+/* 24 */
+/*!***********************************************!*\
+  !*** ./_src/js/app/components/ScrollElems.js ***!
+  \***********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); // import $ from 'properjs-hobo';
+	
+	
+	var _emitter = __webpack_require__(/*! ../utils/emitter */ 17);
+	
+	var _emitter2 = _interopRequireDefault(_emitter);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var ScrollElems = function () {
+	  function ScrollElems($elem) {
+	    _classCallCheck(this, ScrollElems);
+	
+	    this.$elem = $elem;
+	    this.topTrigger = $elem.data('offset');
+	    this.intTrigger = $elem.data('int-offset');
+	    this.triggerLocation = null;
+	    this.winHeight = window.innerHeight;
+	    this.enterWindow = this.winHeight - 50;
+	    this.topOffset = null;
+	
+	    this.initialize();
+	  }
+	
+	  _createClass(ScrollElems, [{
+	    key: 'initialize',
+	    value: function initialize() {
+	      var _this = this;
+	
+	      this._offset();
+	      this._activate();
+	
+	      _emitter2.default.on('app--scroll', function () {
+	        _this._activate();
+	      });
+	
+	      _emitter2.default.on('app--resizer', function () {
+	        _this._resizeEvents();
+	      });
+	    }
+	  }, {
+	    key: '_offset',
+	    value: function _offset() {
+	      if (this.topTrigger) {
+	        this.triggerLocation = this.winHeight * this.topTrigger;
+	      } else if (this.intTrigger) {
+	        this.triggerLocation = this.intTrigger;
+	      } else {
+	        this.triggerLocation = this.enterWindow;
+	      }
+	    }
+	  }, {
+	    key: '_activate',
+	    value: function _activate() {
+	      this.topOffset = this.$elem[0].getBoundingClientRect().top;
+	
+	      if (this.topOffset < this.triggerLocation) {
+	        this.$elem.addClass('active');
+	      } else {
+	        this.$elem.removeClass('active');
+	      }
+	    }
+	  }, {
+	    key: '_resizeEvents',
+	    value: function _resizeEvents() {
+	      this.winHeight = window.innerHeight;
+	      this._offset();
+	      this._activate();
+	    }
+	  }]);
+	
+	  return ScrollElems;
+	}();
+
+	exports.default = ScrollElems;
+
+/***/ },
+/* 25 */
+/*!*******************************!*\
+  !*** ./_src/styles/main.scss ***!
+  \*******************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "styles/main.css";
 
 /***/ }
 /******/ ]);
