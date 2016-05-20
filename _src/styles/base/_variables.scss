@@ -55,6 +55,7 @@ $navi-transition: 0.4s;
 
 // z-index
 $z-nav: 8765310;
+$z-modal: $z-nav + 10;
 $z-home-intro: $z-nav + 5;
 $z-m-nav: $z-nav + 10;
 $z-m-nav-menu: $z-nav + 10;

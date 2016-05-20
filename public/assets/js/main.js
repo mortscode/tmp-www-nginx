@@ -111,6 +111,10 @@
 	
 	var _ScrollElems2 = _interopRequireDefault(_ScrollElems);
 	
+	var _Modal = __webpack_require__(/*! ./components/Modal */ 26);
+	
+	var _Modal2 = _interopRequireDefault(_Modal);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -131,6 +135,7 @@
 	    value: function initialize() {
 	      this.searchButton = new _SearchButton2.default('.js-search-icon');
 	      this.mobileNav = new _MobileNav2.default('.js-nav-button');
+	      this.modal = new _Modal2.default('.js-modal-init');
 	      (0, _loadImages2.default)(this.$lazyImgs);
 	      this._bindEvents();
 	      this._mapOrphans();
@@ -2687,6 +2692,68 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "styles/main.css";
+
+/***/ },
+/* 26 */
+/*!*****************************************!*\
+  !*** ./_src/js/app/components/Modal.js ***!
+  \*****************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _properjsHobo = __webpack_require__(/*! properjs-hobo */ 2);
+	
+	var _properjsHobo2 = _interopRequireDefault(_properjsHobo);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Modal = function () {
+	  function Modal(elem) {
+	    _classCallCheck(this, Modal);
+	
+	    this.$elem = (0, _properjsHobo2.default)(elem);
+	    this.$modal = (0, _properjsHobo2.default)('.js-modal');
+	    this.$modalContent = (0, _properjsHobo2.default)('.js-modal-content');
+	    this.dataModal = this.$elem.data('modal');
+	
+	    this.initialize();
+	  }
+	
+	  _createClass(Modal, [{
+	    key: 'initialize',
+	    value: function initialize() {
+	      this._clickEvents();
+	    }
+	  }, {
+	    key: '_clickEvents',
+	    value: function _clickEvents() {
+	      var _this = this;
+	
+	      this.$elem.on('click', function (e) {
+	        e.preventDefault();
+	        _this.$modal.addClass('-active');
+	      });
+	
+	      this.$modal.on('click', function (e) {
+	        e.preventDefault();
+	        _this.$modal.removeClass('-active');
+	      });
+	    }
+	  }]);
+	
+	  return Modal;
+	}();
+
+	exports.default = Modal;
 
 /***/ }
 /******/ ]);
